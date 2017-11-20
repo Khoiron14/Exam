@@ -27,8 +27,52 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function result()
+    /*
+    * method untuk mendeklarasikan relasi antara role dan user
+    */
+    public function roles()
     {
-        return $this->hasOne('App\Result', 'user_id');
+        return $this->belongsToMany(Role::class);
+    }
+
+    /*
+    * Method untuk menambahkan role (hak akses) baru pada user
+    */ 
+    public function putRole($role)
+    {
+        if (is_string($role))
+        {
+            $role = Role::whereRoleName($role)->first();
+        }
+        return $this->roles()->attach($role);
+    }
+ 
+
+    /*
+    * Method untuk menghapus role (hak akses) pada user
+    */ 
+     public function forgetRole($role)
+     {
+         if (is_string($role))
+         {
+             $role = Role::whereRoleName($role)->first();
+         }
+         return $this->roles()->detach($role);
+     }
+ 
+    /*
+    * Method untuk mengecek apakah user yang sedang login punya hak akses untuk mengakses page sesuai rolenya
+    */
+
+    public function hasRole($roleName)
+    {
+        foreach ($this->roles as $role)
+        {
+            if ($role->role_name === $roleName) return true;
+        }
+            return false;
     }
 }
+
+
+
