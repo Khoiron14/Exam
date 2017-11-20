@@ -27,17 +27,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /*
-    * Method untuk yang mendefinisikan relasi antara model user dan model Role
-     */  
      public function roles()
      {
          return $this->belongsToMany(Role::class);
      }
  
-     /*
-    * Method untuk menambahkan role (hak akses) baru pada user
-     */ 
      public function putRole($role)
      {
          if (is_string($role))
@@ -47,9 +41,6 @@ class User extends Authenticatable
          return $this->roles()->attach($role);
      }
  
-     /*
-    * Method untuk menghapus role (hak akses) pada user
-     */ 
      public function forgetRole($role)
      {
          if (is_string($role))
@@ -59,9 +50,6 @@ class User extends Authenticatable
          return $this->roles()->detach($role);
      }
  
-     /*
-    * Method untuk mengecek apakah user yang sedang login punya hak akses untuk mengakses page sesuai rolenya
-     */ 
      public function hasRole($roleName)
      {
          foreach ($this->roles as $role)
