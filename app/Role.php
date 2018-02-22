@@ -10,9 +10,12 @@ class Role extends Model
     protected $fillable = [
         'role_name', 'created_at', 'updated_at'
     ];
- 
-        public function getUserObject()
-        {
-            return $this->belongsToMany(User::class)->using(UserRole::class);
-        }
+    
+    /*
+    * Method untuk yang mendefinisikan relasi antara model user dan model Role
+    */ 
+    public function getUserObject()
+    {
+        return $this->belongsToMany(User::class)->using(UserRole::class);
+    }
 }

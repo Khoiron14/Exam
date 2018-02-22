@@ -12,6 +12,15 @@
 */
 
 use Illuminate\Http\Request;
+
+// route akses admin(guru)
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:admin']], function(){
+    Route::get('/', function(){
+        $data['users'] = \App\User::whereDoesntHave('roles')->get();
+        return view('admin', $data);
+    });
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
