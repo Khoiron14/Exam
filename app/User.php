@@ -26,7 +26,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+  
     /*
     * method untuk mendeklarasikan relasi antara role dan user
     */
