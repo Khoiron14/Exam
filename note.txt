@@ -1,0 +1,44 @@
+SCHEMA
+
++ users
+    - name
+    - email
+    - password
+    * hasOne        : results
+    * hasMany       : roles(1), answers(2)
+
++ roles
+    - name
+    * belongsTo     : users(1)
+
++ user_role
+    - user_id
+    - role_id
+    * pivot         : users & roles
+
++ questions
+    - quest
+    - option_a
+    - option_b
+    - option_c
+    * hasOne        : questions_keys
+
++ questions_keys
+    - questions_id
+    - key
+    * belongsTo     : questions
+
++ answers
+    - questions_id
+    - answer
+    * belongsToMany : users(2)
+
++ answers_users
+    - user_id
+    - answer_id
+    * pivot         : users & answers
+
++ results
+    - user_id
+    - score
+    * belongsTo     : users
